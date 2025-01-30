@@ -1,5 +1,5 @@
 import unittest
-from tic_tac_toe_logic import TicTacToeLogic
+from src.tic_tac_toe_logic import TicTacToeLogic
 
 class TestTicTacToeLogic(unittest.TestCase):
     
