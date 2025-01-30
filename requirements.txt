@@ -1,0 +1,4 @@
+# Tkinter is included with Python, no need to install separately
+# Ensure using Python 3.x
+
+python>=3.7
