@@ -4,7 +4,6 @@ A simple **Tic-Tac-Toe** game with a **Tkinter GUI**, built using Python and Doc
 
 ## ✨ Features
 - ✅ Interactive **Tkinter GUI**  
-- ✅ **Sound effects** using `pygame`  
 - ✅ Fully **Dockerized** with **CI/CD pipeline** using GitHub Actions  
 - ✅ Automated **unit tests** with `unittest`  
 
