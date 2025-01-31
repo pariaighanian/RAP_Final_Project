@@ -25,7 +25,7 @@ python main.py
 
 ## 🐳 Run with Docker
 You can also run the game inside a **Docker container**.
-### 🔹 **For Linux (Ubuntu/Debian) Users**
+### 🔹 **For Linux Users**
 ```bash
 docker run -it --rm \
     -e DISPLAY=$DISPLAY \
