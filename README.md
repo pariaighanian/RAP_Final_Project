@@ -23,10 +23,6 @@ cd RAP_Final_Project
 python main.py
 ```
 
-📌 **For Windows users:** If using **WSL2**, ensure you have **VcXsrv/Xming** running to display the GUI.
-
----
-
 ## 🐳 Run with Docker
 You can also run the game inside a **Docker container**.
 ### 🔹 **For Linux (Ubuntu/Debian) Users**
@@ -41,7 +37,7 @@ docker run -it --rm \
 
 ### 📌 Explanation:
 - Ensure you have an X server running (e.g., Xorg).
-- Run ```bash echo $DISPLAY ``` to confirm your DISPLAY variable is set.
+- Run ``` echo $DISPLAY ``` to confirm your DISPLAY variable is set.
 - If running on WSL2, use **VcXsrv** or **Xming.**
 
 ### 🔹 **For Windows Users (Using WSL2)**
