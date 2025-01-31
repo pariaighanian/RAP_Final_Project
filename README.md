@@ -29,16 +29,46 @@ python main.py
 
 ## 🐳 Run with Docker
 You can also run the game inside a **Docker container**.
-
-### 1️⃣ Pull the Docker image:
+### 🔹 **For Linux (Ubuntu/Debian) Users**
 ```bash
-docker pull pariaighanian/tictactoe_gui:latest
+docker run -it --rm \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    --network=host \
+    --name gui_container \
+    pariaighanian/tictactoe_gui
 ```
 
-### 2️⃣ Run the container:
+### 📌 Explanation:
+- Ensure you have an X server running (e.g., Xorg).
+- Run ```bash echo $DISPLAY ``` to confirm your DISPLAY variable is set.
+- If running on WSL2, use **VcXsrv** or **Xming.**
+
+### 🔹 **For Windows Users (Using WSL2)**
+Windows users need to install **VcXsrv** or **Xming** to display the GUI.
+
+#### **Step 1: Install and Configure VcXsrv**
+1. Download and install **[VcXsrv](https://sourceforge.net/projects/vcxsrv/)**.
+2. Run `XLaunch` and configure it as follows:
+   - **Multiple Windows**
+   - **Start no client**
+   - **Disable Access Control**
+   - Click **Finish**.
+3. Set the **DISPLAY** variable in WSL:
 ```bash
-docker run -it --rm -e DISPLAY=$DISPLAY --network="host" --name gui_container pariaighanian/tictactoe_gui
+export DISPLAY=$(grep nameserver /etc/resolv.conf | awk '{print $2}'):0.0
 ```
+
+**Step 2: Run the Docker Container**
+```bash
+docker run -it --rm \
+    -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    --network=host \
+    --name gui_container \
+    pariaighanian/tictactoe_gui
+```
+
 
 🚀 The **GUI will appear** on your screen.
 
