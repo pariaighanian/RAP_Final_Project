@@ -1,7 +1,10 @@
-name: Build, Test, and Push Docker Image
+name: CI/CD Pipeline for TicTacToe GUI
 
 on:
   push:
+    branches:
+      - main
+  pull_request:
     branches:
       - main
 
@@ -21,16 +24,19 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Run Tests
+      - name: Run Unit Tests
         run: |
           python -m unittest discover tests
 
   docker:
-    needs: build
+    needs: build  # Runs only if tests pass
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
@@ -44,12 +50,12 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: pariaighanian/tictactoe_gui:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/tictactoe_gui:latest  # Dynamically use Docker Hub username
 
   deploy:
-    needs: docker
+    needs: docker  # Runs only if Docker build is successful
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Server
+      - name: Deploy to Server (Placeholder)
         run: |
-          echo "Deployment Step - Placeholder"
+          echo "Deployment Step - Modify this to deploy your app"
