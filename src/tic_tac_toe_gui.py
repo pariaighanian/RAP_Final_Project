@@ -1,5 +1,7 @@
 import tkinter as tk
-from tic_tac_toe_logic import TicTacToeLogic
+import pygame
+import os
+from src.tic_tac_toe_logic import TicTacToeLogic
 
 class TicTacToeGUI:
     def __init__(self, root):
@@ -7,6 +9,17 @@ class TicTacToeGUI:
         self.root = root
         self.root.title("Tic Tac Toe")
         self.root.resizable(False, False)
+
+        pygame.mixer.init()
+
+        self.sounds = {
+            "click": pygame.mixer.Sound(os.path.join("src", "sounds", "click.wav")),
+            "win": pygame.mixer.Sound(os.path.join("src", "sounds", "win.wav")),
+            "tie": pygame.mixer.Sound(os.path.join("src", "sounds", "tie.wav"))
+        }
+
+        # Track if the game is over
+        self.game_over = False
 
         # Colors
         self.color_blue = "#4584b6"
@@ -39,15 +52,24 @@ class TicTacToeGUI:
 
     def set_tile(self, row, column):
         """Handles the player's move and updates the UI."""
+        if self.game_over:  # Ignore clicks if the game is over
+            return
+
+        if self.game.board[row][column] == "":  # Play click sound only on valid moves
+            self.sounds["click"].play()
+
         self.game.set_tile(row, column)
         self.update_board()
         winner, winning_positions = self.game.check_winner()
 
         if winner:
+            self.game_over = True  # Set game over flag
             if winner == "Tie":
                 self.label.config(text="Tie!", foreground=self.color_yellow)
+                self.sounds["tie"].play()  # Play tie sound
             else:
                 self.label.config(text=f"{winner} is the winner!", foreground=self.color_yellow)
+                self.sounds["win"].play()  # Play win sound
                 for r, c in winning_positions:
                     self.board_buttons[r][c].config(foreground=self.color_yellow, background=self.color_light_gray)
         else:
@@ -62,10 +84,12 @@ class TicTacToeGUI:
     def new_game(self):
         """Resets the game for a new match."""
         self.game.new_game()
+        self.game_over = False  # Reset game over flag
         self.label.config(text=f"{self.game.current_player}'s turn", foreground="white")
         for row in range(3):
             for column in range(3):
                 self.board_buttons[row][column].config(text="", foreground=self.color_blue, background=self.color_gray)
+        pygame.mixer.stop()  # Stop any ongoing sounds
 
     def center_window(self):
         """Centers the game window on the screen."""

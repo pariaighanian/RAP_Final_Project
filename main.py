@@ -1,5 +1,5 @@
 from tkinter import Tk
-from tic_tac_toe_gui import TicTacToeGUI
+from src.tic_tac_toe_gui import TicTacToeGUI
 
 if __name__ == "__main__":
     root = Tk()
