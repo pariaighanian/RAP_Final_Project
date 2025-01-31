@@ -19,12 +19,7 @@ git clone https://github.com/pariaighanian/RAP_Final_Project.git
 cd RAP_Final_Project
 ```
 
-### 2️⃣ Install dependencies:
-```bash
-pip install -r requirements.txt
-```
-
-### 3️⃣ Run the game:
+### 2️⃣ Run the game:
 ```bash
 python main.py
 ```
